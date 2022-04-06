@@ -11,68 +11,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
-      home: SafeArea(
-        child: MyScaffold(),
-      ),
+      title: 'Flutter Tutorial',
+      home: TutorialHome(),
     );
   }
 }
 
-class MyScaffold extends StatelessWidget {
-  const MyScaffold({Key? key}) : super(key: key);
+class TutorialHome extends StatelessWidget {
+  const TutorialHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          MyAppBar(
-            title: Text(
-              'Example title',
-              style: Theme.of(context).primaryTextTheme.headline6,
-            ),
-          ),
-          const Expanded(
-              child: Center(
-            child: Text('Hello World!'),
-          ))
-        ],
-      ),
-    );
-  }
-}
-
-class MyAppBar extends StatelessWidget {
-  const MyAppBar({required this.title, Key? key}) : super(key: key);
-
-  final Widget title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 56.0,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8.0,
-      ),
-      decoration: BoxDecoration(color: Colors.blue[500]),
-      child: Row(
-        children: [
-          const IconButton(
+    return Scaffold(
+        appBar: AppBar(
+          leading: const IconButton(
             icon: Icon(Icons.menu),
             tooltip: 'Navigation menu',
             onPressed: null,
           ),
-          Expanded(
-            child: title,
-          ),
-          const IconButton(
-            icon: Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          )
-        ],
-      ),
-    );
+          title: const Text('Example title'),
+          actions: const [
+            IconButton(
+              icon: Icon(Icons.search),
+              tooltip: 'Search',
+              onPressed: null,
+            )
+          ],
+        ),
+        body: const Center(
+          child: Text('Hello World!'),
+        ),
+        floatingActionButton: const FloatingActionButton(
+          tooltip: 'Add',
+          child: Icon(Icons.add),
+          onPressed: null,
+        ));
   }
 }

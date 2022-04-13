@@ -12,66 +12,58 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Counter(),
+          child: ShoppingListItem(
+            product: const Product(name: 'Chips'),
+            inCart: true,
+            onCartChanged: (product, inCart) {},
+          ),
         ),
       ),
     );
   }
 }
 
-class CounterDisplay extends StatelessWidget {
-  const CounterDisplay({required this.count, Key? key}) : super(key: key);
+class ShoppingListItem extends StatelessWidget {
+  ShoppingListItem({
+    required this.product,
+    required this.inCart,
+    required this.onCartChanged,
+  }) : super(key: ObjectKey(product));
 
-  final int count;
+  final Product product;
+  final bool inCart;
+  final CartChangedCallback onCartChanged;
 
-  @override
-  Widget build(BuildContext context) {
-    return Text('Count: $count');
+  Color _getColor(BuildContext context) {
+    return inCart ? Colors.black54 : Theme.of(context).primaryColor;
   }
-}
 
-class CounterIncrementor extends StatelessWidget {
-  const CounterIncrementor({required this.onPressed, Key? key})
-      : super(key: key);
+  TextStyle? _getTextStyle(BuildContext context) {
+    if (!inCart) return null;
 
-  final VoidCallback onPressed;
+    return const TextStyle(
+        color: Colors.black54, decoration: TextDecoration.lineThrough);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: const Text('Increment'),
+    return ListTile(
+      onTap: () {
+        onCartChanged(product, inCart);
+      },
+      leading: CircleAvatar(
+        backgroundColor: _getColor(context),
+        child: Text(product.name[0]),
+      ),
+      title: Text(product.name, style: _getTextStyle(context)),
     );
   }
 }
 
-class Counter extends StatefulWidget {
-  const Counter({Key? key}) : super(key: key);
+class Product {
+  const Product({required this.name});
 
-  @override
-  _CounterState createState() => _CounterState();
+  final String name;
 }
 
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  void _increment() {
-    setState(() => {
-          ++_counter,
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        CounterIncrementor(onPressed: _increment),
-        const SizedBox(
-          width: 16,
-        ),
-        CounterDisplay(count: _counter),
-      ],
-    );
-  }
-}
+typedef CartChangedCallback = Function(Product product, bool inCart);

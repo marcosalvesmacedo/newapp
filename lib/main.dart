@@ -6,41 +6,32 @@ void main() {
   runApp(const MyAppNonMaterial());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter layout demonstration',
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Flutter layout demonstration'),
-          ),
-          body: const Center(
-            child: Text('Hello World!'),
-          ),
-        ));
-  }
-}
-
 class MyAppNonMaterial extends StatelessWidget {
   const MyAppNonMaterial({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      child: const Center(
-        child: Text(
-          'Hello World!',
-          textDirection: TextDirection.ltr,
-          style: TextStyle(
-            fontSize: 32,
-            color: Colors.black87,
+    return Row(
+      textDirection: TextDirection.ltr,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded(
+          child: Image.asset(
+            'images/picture1.jpg',
           ),
         ),
-      ),
+        Expanded(
+          flex: 2,
+          child: Image.asset(
+            'images/picture2.jpg',
+          ),
+        ),
+        Expanded(
+          child: Image.asset(
+            'images/picture3.jpg',
+          ),
+        )
+      ],
     );
   }
 }

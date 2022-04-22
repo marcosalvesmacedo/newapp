@@ -9,24 +9,21 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  Widget _buildDecoratedImage(indexImage) => Expanded(
-        child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 40, color: Colors.black38),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
-            margin: const EdgeInsets.all(4),
-            child: Image.asset(
-              'images/picture$indexImage.jpg',
-              height: 200,
-            )),
+  Widget _buildGrid() => GridView.extent(
+        maxCrossAxisExtent: 150,
+        padding: const EdgeInsets.all(4),
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        children: _buildGridTileList(4),
       );
 
-  Widget _buildImageRow(int indexImage) => Row(
-        children: [
-          _buildDecoratedImage(indexImage),
-          _buildDecoratedImage(indexImage + 1),
-        ],
+  List<Container> _buildGridTileList(int count) => List.generate(
+        count,
+        (i) => Container(
+          child: Image.asset(
+            'images/picture$i.jpg',
+          ),
+        ),
       );
 
   @override
@@ -34,17 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.black26,
-            ),
-            child: Column(
-              children: [
-                _buildImageRow(1),
-                _buildImageRow(3),
-              ],
-            ),
-          ),
+          child: _buildGrid(),
         ),
       ),
     );

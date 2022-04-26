@@ -9,50 +9,44 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  Widget _buildList() {
-    return ListView(
-      children: [
-        _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
-        _tile('The Castro Theater', '429 Castro St', Icons.theaters),
-        _tile('Alamo Drafthouse Cinema', '2550 Mission St', Icons.theaters),
-        _tile('Roxie Theater', '3117 16th St', Icons.theaters),
-        _tile('United Artists Stonestown Twin', '501 Buckingham Way',
-            Icons.theaters),
-        _tile('AMC Metreon 16', '135 4th St #3000', Icons.theaters),
-        const Divider(),
-        _tile('K\'s Kitchen', '757 Monterey Blvd', Icons.restaurant),
-        _tile('Emmy\'s Restaurant', '1923 Ocean Ave', Icons.restaurant),
-        _tile('Chaiya Thai Restaurant', '272 Claremont Blvd', Icons.restaurant),
-        _tile('La Ciccia', '291 30th St', Icons.restaurant),
-        _tile('CineArts at the Empire', '85 W Portal Ave', Icons.theaters),
-        _tile('The Castro Theater', '429 Castro St', Icons.theaters),
-        _tile('Alamo Drafthouse Cinema', '2550 Mission St', Icons.theaters),
-        _tile('Roxie Theater', '3117 16th St', Icons.theaters),
-        _tile('United Artists Stonestown Twin', '501 Buckingham Way',
-            Icons.theaters),
-        _tile('AMC Metreon 16', '135 4th St #3000', Icons.theaters),
-        const Divider(),
-        _tile('K\'s Kitchen', '757 Monterey Blvd', Icons.restaurant),
-        _tile('Emmy\'s Restaurant', '1923 Ocean Ave', Icons.restaurant),
-        _tile('Chaiya Thai Restaurant', '272 Claremont Blvd', Icons.restaurant),
-        _tile('La Ciccia', '291 30th St', Icons.restaurant),
-      ],
-    );
-  }
-
-  Widget _tile(String title, String subTitle, IconData icon) {
-    return ListTile(
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
+  Widget _buildCard() {
+    return SizedBox(
+      height: 210,
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              title: const Text(
+                '1625 Main Street',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: const Text('My City, CA 99984'),
+              leading: Icon(
+                Icons.restaurant_menu,
+                color: Colors.blue[500],
+              ),
+            ),
+            const Divider(),
+            ListTile(
+              title: const Text(
+                '(408) 555-1212',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              leading: Icon(Icons.contact_phone, color: Colors.blue[500]),
+            ),
+            ListTile(
+              title: const Text('costa@exemplo.com'),
+              leading: Icon(
+                Icons.contact_mail,
+                color: Colors.blue[500],
+              ),
+            )
+          ],
         ),
-      ),
-      subtitle: Text(subTitle),
-      leading: Icon(
-        icon,
-        color: Colors.blue[500],
       ),
     );
   }
@@ -62,7 +56,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: _buildList(),
+          child: _buildCard(),
         ),
       ),
     );

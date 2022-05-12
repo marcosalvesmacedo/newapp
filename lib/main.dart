@@ -11,31 +11,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget foo = LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraint) {
+      bool useVerticalLayout = constraint.maxWidth < 600.0;
+      return Flex(
+        children: const [
+          Text('Foo'),
+          Text('Bar'),
+          Text('Bar'),
+        ],
+        direction: useVerticalLayout ? Axis.vertical : Axis.horizontal,
+      );
+    });
+
     return MaterialApp(
       title: 'Adaptive and Responsive layout',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Adaptive and Responsive layout'),
         ),
-        body: const MyHomePage(),
+        body: foo,
       ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    bool isHandset = MediaQuery.of(context).size.width < 600;
-    return Flex(
-      children: const [
-        Text('Foo'),
-        Text('Bar'),
-        Text('Bar'),
-      ],
-      direction: isHandset ? Axis.vertical : Axis.horizontal,
     );
   }
 }

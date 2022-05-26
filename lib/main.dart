@@ -18,14 +18,55 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Adaptive and Responsive layout'),
         ),
-        body: Listener(
-          onPointerSignal: (event) {
-            if (event is PointerScrollEvent) {
-              print(event.scrollDelta.dy);
-            }
+        body: const BasicActionDetector(),
+      ),
+    );
+  }
+}
+
+class BasicActionDetector extends StatefulWidget {
+  const BasicActionDetector({Key? key}) : super(key: key);
+
+  @override
+  _BasicActionDetectorState createState() => _BasicActionDetectorState();
+}
+
+class _BasicActionDetectorState extends State<BasicActionDetector> {
+  bool _hasFocus = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FocusableActionDetector(
+      onFocusChange: (value) => setState(() => _hasFocus = value),
+      actions: <Type, Action<Intent>>{
+        ActivateIntent: CallbackAction<Intent>(
+          onInvoke: (Intent intent) {
+            print("Enter or Space as pressed!");
+            return null;
           },
-          child: ListView(),
         ),
+      },
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          const FlutterLogo(size: 100),
+          if (_hasFocus)
+            Positioned(
+              left: 100,
+              top: 100,
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 5.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                child: const Text('Ola Flutter'),
+              ),
+            ),
+        ],
       ),
     );
   }

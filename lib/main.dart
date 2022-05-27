@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -17,27 +18,21 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Adaptive and Responsive layout'),
         ),
-        body: Column(
-          children: [
-            FocusTraversalGroup(
-              child: Column(
-                children: const [
-                  TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Field 1',
-                        hintText: '1'),
-                  ),
-                ],
+        body: Focus(
+          onKey: (node, event) {
+            if (event is RawKeyDownEvent) {
+              print(event.logicalKey.keyLabel);
+            }
+            return KeyEventResult.ignored;
+          },
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
               ),
             ),
-            const TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Field 2',
-                  hintText: '2'),
-            ),
-          ],
+          ),
         ),
       ),
     );

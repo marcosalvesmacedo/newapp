@@ -7,6 +7,10 @@ void main() {
   runApp(const MyApp());
 }
 
+class CreateNewItemIntent extends Intent {
+  const CreateNewItemIntent();
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -18,20 +22,13 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Adaptive and Responsive layout'),
         ),
-        body: Focus(
-          onKey: (node, event) {
-            if (event is RawKeyDownEvent) {
-              print(event.logicalKey.keyLabel);
-            }
-            return KeyEventResult.ignored;
-          },
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
+        body: MouseRegion(
+          cursor: SystemMouseCursors.forbidden,
+          child: GestureDetector(
+            onTap: () {
+              Focus.of(context).requestFocus();
+            },
+            child: Container(),
           ),
         ),
       ),
